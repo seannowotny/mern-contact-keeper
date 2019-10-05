@@ -8,7 +8,8 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
-    "dev": "concurrently \"npm run build\" \"flow-remove-types client/src/ -d client/lib/\" \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run build\" \"flow-remove-types client/src/ -d client/lib/\" \"npm run server\" \"npm run client\"",
+    "flow": "flow"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.2",
+    "flow-bin": "^0.109.0",
     "flow-remove-types": "^2.109.0",
     "nodemon": "^1.19.3"
   }
