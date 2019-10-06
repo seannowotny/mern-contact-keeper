@@ -1,3 +1,5 @@
+// @flow
+
 import React, { useReducer } from 'react';
 import uuid from 'uuid';
 import ContactContext from './contactContext';
@@ -11,11 +13,21 @@ import {
   CLEAR_FILTER
 } from '../types';
 
-// @flow
+export type Contact = {|
+   id: number,
+   type: "personal" | "professional",
+   name: string,
+   email: string,
+   phone: string
+|}
 
-const ContactState = props => 
+type ContactsState = {|
+      contacts: Contact[]
+|}
+
+const ContactState = (props: any) => 
 {
-   const initialState = 
+   const initialState: ContactsState = 
    {
       contacts: 
       [
