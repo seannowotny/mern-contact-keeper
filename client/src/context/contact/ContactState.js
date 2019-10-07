@@ -55,9 +55,14 @@ const ContactState = (props: any) =>
       ]
    };
 
+   // state allows us to access anything in our state and dispatch allows us to dispatch objects to the reducer
    const [state, dispatch] = useReducer(contactReducer, initialState);
 
    // Add Contact
+   const addContact = contact => {
+      contact.id = uuid.v4();
+      dispatch({ type: ADD_CONTACT, payload: contact });
+   }
 
    // Delete Contact
 
@@ -74,7 +79,8 @@ const ContactState = (props: any) =>
    return (
       <ContactContext.Provider
          value={{ 
-            contacts: state.contacts
+            contacts: state.contacts,
+            addContact
           }}>
          { props.children }
       </ContactContext.Provider>
