@@ -1,13 +1,13 @@
 // @flow
 
-import { stat } from 'fs';
+// import type { ContactsState } from '../../context/contact/ContactState';
 
 export type ActionType = 'ADD_CONTACT' | 'DELETE_CONTACT' | 'SET_CURRENT' | 'CLEAR_CURRENT' | 'UPDATE_CONTACT' | 'FILTER_CONTACTS' | 'CLEAR_FILTER' | 'SET_ALERT' | 'REMOVE_ALERT';
 
-export type Action = {
+export type Action = {|
    type: ActionType,
-   payload?: any
-}
+   payload: any
+|}
 
 export default (state: any, action: Action) => {
    switch(action.type)
@@ -17,6 +17,14 @@ export default (state: any, action: Action) => {
             ...state,
             contacts: [...state.contacts, action.payload]
          };
+      case 'UPDATE_CONTACT':
+         return {
+            ...state,
+            contacts: state.contacts.map(contact => 
+               contact.id === action.payload.id 
+               ? action.payload : contact
+            )
+         }
       case 'DELETE_CONTACT':
          return {
             ...state,

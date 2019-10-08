@@ -14,7 +14,8 @@ const Contacts = () => {
   return (
     <Fragment>
       {contacts.map(contact => (
-        <ContactItem /* key={contact.id} */ contact={contact} />
+        //Every React Element needs a key
+        <ContactItem key={contact.id} contact={contact} />
       ))}
     </Fragment>
   )

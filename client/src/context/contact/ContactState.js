@@ -5,7 +5,6 @@ import uuid from 'uuid';
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
 
-import type { ActionType } from './contactReducer';
 import type { Action } from './contactReducer';
 
 //#region types
@@ -17,7 +16,7 @@ export type Contact = {|
    phone: string
 |}
 
-type ContactsState = {|
+export type ContactsState = {|
    contacts: Contact[],
    current: ?Contact
 |}
@@ -77,10 +76,13 @@ const ContactState = (props: any) =>
 
    // Clear Current Contact
    const clearCurrent = () => {
-      dispatch({ type: 'CLEAR_CURRENT' });
+      dispatch({ type: 'CLEAR_CURRENT', payload: {} });
    }
 
    // Update Contact
+   const updateContact = (contact: Contact) => {
+      dispatch({ type: 'UPDATE_CONTACT', payload: contact });
+   }
 
    // Filter Contacts
 
@@ -94,7 +96,8 @@ const ContactState = (props: any) =>
             addContact,
             deleteContact,
             setCurrent,
-            clearCurrent
+            clearCurrent,
+            updateContact
           }}>
          { props.children }
       </ContactContext.Provider>
