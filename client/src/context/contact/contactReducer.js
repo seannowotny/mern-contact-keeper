@@ -1,21 +1,26 @@
 // @flow
 
-import {
-   ADD_CONTACT,
-   DELETE_CONTACT,
-   CLEAR_CURRENT,
-   UPDATE_CONTACT,
-   FILTER_CONTACTS,
-   CLEAR_FILTER
-} from '../types';
+import { stat } from 'fs';
 
-export default (state: any, action: any) => {
+export type ActionType = 'ADD_CONTACT' | 'DELETE_CONTACT' | 'SET_CURRENT' | 'CLEAR_CURRENT' | 'UPDATE_CONTACT' | 'FILTER_CONTACTS' | 'CLEAR_FILTER' | 'SET_ALERT' | 'REMOVE_ALERT';
+
+export type Action = {
+   type: ActionType,
+   payload: any
+}
+
+export default (state: any, action: Action) => {
    switch(action.type)
    {
-      case ADD_CONTACT:
+      case 'ADD_CONTACT':
          return {
             ...state,
             contacts: [...state.contacts, action.payload]
+         };
+      case 'DELETE_CONTACT':
+         return {
+            ...state,
+            contacts: state.contacts.filter(contact => contact.id !== action.payload)
          };
       default:
          return state;
