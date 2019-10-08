@@ -8,6 +8,7 @@ import contactReducer from './contactReducer';
 import type { ActionType } from './contactReducer';
 import type { Action } from './contactReducer';
 
+//#region types
 export type Contact = {|
    id: number,
    type: "personal" | "professional",
@@ -17,11 +18,12 @@ export type Contact = {|
 |}
 
 type ContactsState = {|
-   contacts: Contact[]
+   contacts: Contact[],
+   current: ?Contact
 |}
 
 type Dispatch = (Action) => any;
-   
+//#endregion
 
 const ContactState = (props: any) => 
 {
@@ -50,26 +52,33 @@ const ContactState = (props: any) =>
             email: "harry@gmail.com",
             phone: "333-333-3333",
          } 
-      ]
+      ],
+      current: null
    };
 
    // state allows us to access anything in our state and dispatch allows us to dispatch objects to the reducer
    const [state, dispatch]: [any, Dispatch] = useReducer(contactReducer, initialState);
 
    // Add Contact
-   const addContact = contact => {
-      contact.id = uuid.v4();
+   const addContact = (contact: Contact) => {
+      contact.id = parseInt(uuid.v4());
       dispatch({ type: 'ADD_CONTACT', payload: contact });
    }
 
    // Delete Contact
-   const deleteContact = id => {
+   const deleteContact = (id: number) => {
       dispatch({ type: 'DELETE_CONTACT', payload: id });
    }
 
    // Set Current Contact
+   const setCurrent = (contact: Contact) => {
+      dispatch({ type: 'SET_CURRENT', payload: contact });
+   }
 
    // Clear Current Contact
+   const clearCurrent = () => {
+      dispatch({ type: 'CLEAR_CURRENT' });
+   }
 
    // Update Contact
 
@@ -81,8 +90,11 @@ const ContactState = (props: any) =>
       <ContactContext.Provider
          value={{ 
             contacts: state.contacts,
+            current: state.current,
             addContact,
-            deleteContact
+            deleteContact,
+            setCurrent,
+            clearCurrent
           }}>
          { props.children }
       </ContactContext.Provider>

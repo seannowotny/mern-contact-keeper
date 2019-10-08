@@ -8,13 +8,14 @@ import type { Contact } from '../../context/contact/ContactState';
 const ContactItem = ({ contact }: {contact:Contact}) => 
 {
   const contactContext = useContext(ContactContext);
-  const { deleteContact } = contactContext;
+  const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
   const { id, name, email, phone, type }: Contact = contact;
 
   const onDelete = () =>
   {
       deleteContact(id);
+      clearCurrent();
   }
 
   return (
@@ -38,7 +39,7 @@ const ContactItem = ({ contact }: {contact:Contact}) =>
         </li>)}
       </ul>
       <p>
-        <button className="btn btn-dark btn-sm">Edit</button>
+        <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
         <button className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
       </p>
     </div>

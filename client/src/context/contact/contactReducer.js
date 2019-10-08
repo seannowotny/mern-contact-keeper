@@ -6,7 +6,7 @@ export type ActionType = 'ADD_CONTACT' | 'DELETE_CONTACT' | 'SET_CURRENT' | 'CLE
 
 export type Action = {
    type: ActionType,
-   payload: any
+   payload?: any
 }
 
 export default (state: any, action: Action) => {
@@ -22,6 +22,16 @@ export default (state: any, action: Action) => {
             ...state,
             contacts: state.contacts.filter(contact => contact.id !== action.payload)
          };
+      case 'SET_CURRENT':
+         return {
+            ...state,
+            current: action.payload
+         }
+      case 'CLEAR_CURRENT':
+      return {
+         ...state,
+         current: null
+      }
       default:
          return state;
    }
