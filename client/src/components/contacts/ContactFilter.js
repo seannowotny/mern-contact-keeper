@@ -1,4 +1,4 @@
-// @flow
+
 
 import React, { useContext, useRef, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
