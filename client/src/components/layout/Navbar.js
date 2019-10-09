@@ -18,6 +18,8 @@ const Navbar = ({ title, icon }: NavbarProps) => {
             <li>
                <Link to='/'>Home</Link>
                <Link to='/about'>About</Link>
+               <Link to='/register'>Register</Link>
+               <Link to='/login'>Login</Link>
             </li>
          </ul>
       </div>

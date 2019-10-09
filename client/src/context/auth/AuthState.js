@@ -1,7 +1,6 @@
 // @flow
 
 import React, { useReducer } from 'react';
-import uuid from 'uuid';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 

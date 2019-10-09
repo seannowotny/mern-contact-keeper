@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ContactContext from '../../context/contact/contactContext';
 import ContactItem from './ContactItem';
 
-import type { Contact, ContactContextType } from '../../context/contact/ContactState';
+import type { ContactContextType } from '../../context/contact/ContactState';
 
 const Contacts = () => {
   const contactContext = useContext(ContactContext);
