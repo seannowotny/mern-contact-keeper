@@ -18,7 +18,19 @@ export type Contact = {|
 
 export type ContactsState = {|
    contacts: Contact[],
-   current: ?Contact
+   current: ?Contact,
+   filtered: ?Contact[]
+|}
+
+export type ContactContextType = 
+ContactsState & {|
+   addContact: (Contact) => null,
+   deleteContact: (number) => null,
+   setCurrent: (Contact) => null,
+   clearCurrent: () => null,
+   updateContact: (Contact) => null,
+   filterContacts: (string) => null,
+   clearFilter: () => null
 |}
 
 type Dispatch = (Action) => any;
@@ -52,7 +64,8 @@ const ContactState = (props: any) =>
             phone: "333-333-3333",
          } 
       ],
-      current: null
+      current: null,
+      filtered: null
    };
 
    // state allows us to access anything in our state and dispatch allows us to dispatch objects to the reducer
@@ -85,19 +98,28 @@ const ContactState = (props: any) =>
    }
 
    // Filter Contacts
+   const filterContacts = (text:string) => {
+      dispatch({ type: 'FILTER_CONTACTS', payload: text });
+   }
 
    // Clear Filter
+   const clearFilter = () => {
+      dispatch({ type: 'CLEAR_FILTER', payload: {} });
+   }
 
    return (
       <ContactContext.Provider
          value={{ 
             contacts: state.contacts,
             current: state.current,
+            filtered: state.filtered,
             addContact,
             deleteContact,
             setCurrent,
             clearCurrent,
-            updateContact
+            updateContact,
+            filterContacts,
+            clearFilter
           }}>
          { props.children }
       </ContactContext.Provider>
