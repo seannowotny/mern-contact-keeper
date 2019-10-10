@@ -1,4 +1,4 @@
-// @flow
+
 
 import React, { useReducer } from 'react';
 import axios from 'axios';
@@ -117,7 +117,7 @@ const AuthState = (props: any) =>
   }
 
    // Logout
-   const logout = () => console.log('logout');
+   const logout = () => dispatch({ type: 'LOGOUT' });
 
    // Clear Errors
    const clearErrors = () => dispatch({ type: 'CLEAR_ERRORS' })
