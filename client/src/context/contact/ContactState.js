@@ -9,7 +9,7 @@ import type { Action } from './contactReducer';
 
 //#region types
 export type Contact = {|
-   id: number,
+   _id: number,
    type: "personal" | "professional",
    name: string,
    email: string,
@@ -91,8 +91,20 @@ const ContactState = (props: any) =>
    }
 
    // Delete Contact
-   const deleteContact = (id: number) => {
-      dispatch({ type: 'DELETE_CONTACT', payload: id });
+   const deleteContact = async (id: number) => {
+      try {
+         const res = await axios.delete(`/api/contacts/${id}`);
+
+         dispatch({ 
+            type: 'DELETE_CONTACT', 
+            payload: id 
+         });
+      } catch(err) {
+         dispatch({ 
+            type: 'CONTACT_ERROR',
+            payload: err.response.msg
+         });
+      }
    }
 
    // Clear Contacts
