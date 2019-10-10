@@ -4,7 +4,7 @@ export type AuthType = 'REGISTER_SUCCESS' | 'REGISTER_FAIL' | 'USER_LOADED' | 'A
 
 export type Auth = {|
   type: AuthType,
-  payload: {|
+  payload?: {|
     token: string
   |}
 |};
@@ -12,8 +12,15 @@ export type Auth = {|
 export default (state: any, action: Auth) => {
   switch(action.type)
   {
+    case 'USER_LOADED':
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload
+      }
     case 'REGISTER_SUCCESS':
-      localStorage.setItem('token', action.payload.token);
+      if(action.payload) { localStorage.setItem('token', action.payload.token); }
       return {
         ...state,
         ...action.payload,
@@ -21,15 +28,16 @@ export default (state: any, action: Auth) => {
         loading: false
       }
     case 'REGISTER_FAIL':
-    localStorage.removeItem('token');
-    return {
-      ...state,
-      token: null,
-      isAuthenticated: false,
-      loading: false,
-      user: null,
-      error: action.payload
-    }
+    case 'AUTH_ERROR':
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+        error: action.payload
+      }
     case 'CLEAR_ERRORS':
       return {
         ...state,
