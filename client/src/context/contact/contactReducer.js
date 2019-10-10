@@ -2,7 +2,7 @@
 
 // import type { ContactsState } from '../../context/contact/ContactState';
 
-export type ActionType = 'ADD_CONTACT' | 'DELETE_CONTACT' | 'SET_CURRENT' | 'CLEAR_CURRENT' | 'UPDATE_CONTACT' | 'FILTER_CONTACTS' | 'CLEAR_FILTER';
+export type ActionType = 'ADD_CONTACT' | 'DELETE_CONTACT' | 'SET_CURRENT' | 'CLEAR_CURRENT' | 'UPDATE_CONTACT' | 'FILTER_CONTACTS' | 'CLEAR_FILTER' | 'CONTACT_ERROR';
 
 export type Action = {|
    type: ActionType,
@@ -53,6 +53,11 @@ export default (state: any, action: Action) => {
          return {
             ...state,
             filtered: null
+         };
+      case 'CONTACT_ERROR':
+         return {
+            ...state,
+            error: action.payload
          };
       default:
          return state;
