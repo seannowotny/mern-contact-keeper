@@ -50,6 +50,23 @@ const ContactState = (props: any) =>
    // state allows us to access anything in our state and dispatch allows us to dispatch objects to the reducer
    const [state, dispatch]: [any, Dispatch] = useReducer(contactReducer, initialState);
 
+   // Get Contacts
+   const getContacts = async (contact: Contact) => {
+      try {
+         const res = await axios.get('/api/contacts');
+
+         dispatch({ 
+            type: 'GET_CONTACTS', 
+            payload: res.data 
+         });
+      } catch(err) {
+         dispatch({ 
+            type: 'CONTACT_ERROR',
+            payload: err.response.msg
+         });
+      }
+   }
+
    // Add Contact
    const addContact = async (contact: Contact) => {
       const config = {
@@ -76,6 +93,11 @@ const ContactState = (props: any) =>
    // Delete Contact
    const deleteContact = (id: number) => {
       dispatch({ type: 'DELETE_CONTACT', payload: id });
+   }
+
+   // Clear Contacts
+   const clearContacts = () => {
+      dispatch({ type: 'CLEAR_CONTACTS', payload: {} });
    }
 
    // Set Current Contact
@@ -116,7 +138,9 @@ const ContactState = (props: any) =>
             clearCurrent,
             updateContact,
             filterContacts,
-            clearFilter
+            clearFilter,
+            getContacts,
+            clearContacts
           }}>
          { props.children }
       </ContactContext.Provider>
