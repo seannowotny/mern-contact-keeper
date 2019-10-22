@@ -8,8 +8,9 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
-    "dev": "flow-remove-types client/src/ -d client/lib/ && concurrently \"npm run server\" \"npm run client\"",
-    "flow": "flow"
+    "dev": "flow-remove-types client/src/ -d client/lib/ && concurrently \"npm run server\" \"npm run client\"",   
+    "flow": "flow",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
