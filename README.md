@@ -1,6 +1,3 @@
-# mern-contact-keeper
-Contact Keeper website .
-
 # What this repo is about
 This is a website based on the Udemy Course 'React Front To Back' by Brad Traversy. 
 The application lets you keep a non-persistant(!) list of contacts.
